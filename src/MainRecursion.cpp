@@ -30,6 +30,6 @@ int main(){
 	printf("%d\n", check);
 	*/
 
-	
+	getchar();
 	return 0;
 }
