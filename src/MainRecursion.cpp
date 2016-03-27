@@ -10,7 +10,7 @@ int main(){
 	//Check CountPairs Sample Code 
 
 	//Check Steps Sample Code
-
+	printf("%d\n", get_steps(5));
 	//Check Spiral Sample Code
 
 	//Check Maze Sample Code
