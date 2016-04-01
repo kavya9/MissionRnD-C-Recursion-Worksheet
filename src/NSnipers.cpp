@@ -43,6 +43,48 @@ P.S: The Above Problem is just a modified version of a popular BackTracking prob
 */
 
 #include "stdafx.h"
-int solve_nsnipers(int *battlefield, int n){
+
+int canPlace(int *battlefield, int n, int row, int column)
+{
+	int i, j;
+	/*printf("\n\n");
+	for (i = 0; i < 4; i++)
+	{
+		for (j = 0; j < 4; j++)
+			printf("%d ", *((battlefield + i*n) + j));
+		printf("\n");
+	}*/
+	for (i = 0; i <column; i++)
+	{
+		if (*((battlefield + row*n) + i)) return 0;
+	}
+	for (i = row, j = column; i >= 0 && j >= 0; i--, j--)
+	{
+		if (*((battlefield + i*n) + j)) return 0;
+	}
+	for (i = row, j = column; j >= 0 && i<n; i++, j--)
+	{
+		if (*((battlefield + i*n) + j))return 0;
+	}
+	return 1;
+}
+int backtrackSnipers(int *battlefield, int n, int column)
+{
+	int row;
+	if (column == n) return 1;
+	for (row = 0; row < n; row++)
+	{
+		if (canPlace(battlefield, n, row, column))
+		{
+			*((battlefield + row*n) + column) = 1;
+			//printf("%d %d\n", row, column);
+			if (backtrackSnipers(battlefield, n, column + 1)) return 1;
+			*((battlefield + row*n) + column) = 0;
+		}
+	}
 	return 0;
+}
+int solve_nsnipers(int *battlefield, int n){
+	if (battlefield == NULL || n <= 0)return 0;
+	return backtrackSnipers(battlefield, n, 0);
 }
